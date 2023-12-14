@@ -43,28 +43,43 @@ public class DrawingBoard extends JPanel implements MouseListener, MouseMotionLi
         frame.setLayout(new BorderLayout());
         frame.add(this, BorderLayout.CENTER);
 
-        ImageIcon icon = new ImageIcon("icone/logo.png");
+        ImageIcon icon = new ImageIcon("logo.jpg");
         frame.setIconImage(icon.getImage());
 
         clearButton = new JButton("Clear");
         clearButton.addActionListener(e -> clear());
 
+        clearButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        clearButton.setBackground(new Color(0x3F3C3C));
+        clearButton.setForeground(Color.WHITE);
+        clearButton.setOpaque(true);
+        clearButton.setBorderPainted(false);
+
+        JLabel eraserLabel = new JLabel(" Right click for eraser");
+        eraserLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        eraserLabel.setForeground(new Color(0x3F3C3C));
+        eraserLabel.setOpaque(true);
+        eraserLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        //ImageIcon eraserIcon = new ImageIcon("gomme3.png");
+        //eraserLabel.setIcon(eraserIcon);
+
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(clearButton);
+        buttonPanel.add(eraserLabel);
+
+        buttonPanel.add(Box.createHorizontalStrut(-150)); // Ajoute un espace de 20 pixels avant le bouton
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.add(predictionPanel, BorderLayout.EAST);
-
         frame.add(choicePanel, BorderLayout.WEST);
-
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1250, 670);
-
-        frame.setResizable(false);
         frame.setVisible(true);
     }
+
 
     public void setCanDraw(boolean canDraw) {
         this.canDraw = canDraw;
@@ -149,7 +164,6 @@ public class DrawingBoard extends JPanel implements MouseListener, MouseMotionLi
         predictionDebounceTimer.schedule(predictionDebounceTimerTask, 500);
     }
 
-    // The remaining mouse event methods are unchanged
     public void mouseExited(MouseEvent e) { }
     public void mouseEntered(MouseEvent e) { }
     public void mouseClicked(MouseEvent e) { }
